@@ -13,17 +13,22 @@ function App() {
   const [totalResults, setTotalResults] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
 
-  const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
   const PAGE_SIZE = 20;
 
   const fetchNews = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=us&category=${category}&page=${currentPage}&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`
-      );
-      console.log(response);
+      // CHANGE THIS URL:
+      // Instead of https://newsapi.org/..., use your local /api/news route
+      const response = await axios.get(`/api/news`, {
+        params: {
+          category: category,
+          page: currentPage,
+          pageSize: PAGE_SIZE,
+        },
+      });
+
       const articles = response.data.articles || [];
       setNews(articles);
       setTotalResults(response.data.totalResults || 0);
