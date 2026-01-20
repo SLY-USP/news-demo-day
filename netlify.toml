@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist" # or "build" depending on your vite config
+
+[functions]
+  directory = "netlify/functions"
+
+# This redirects frontend calls from /api/* to your functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
